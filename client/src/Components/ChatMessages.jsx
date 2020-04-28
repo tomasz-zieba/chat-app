@@ -91,6 +91,12 @@ export default function ChatMessages({ chat, chatId }) {
     sendMessage(message, userName, chatId);
     setMessage('');
   }
+  function sendMessageWithEnter(e) {
+    if (e.keyCode === 13) {
+      sendMessage(message, userName, chatId);
+      setMessage('');
+    }
+  }
 
   useEffect(() => {
     updateScrollToBottom('chatWindow');
@@ -122,6 +128,7 @@ export default function ChatMessages({ chat, chatId }) {
           variant="outlined"
           color="secondary"
           value={message}
+          onKeyDown={(event) => sendMessageWithEnter(event)}
         />
       </div>
     </div>
