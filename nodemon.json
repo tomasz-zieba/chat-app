@@ -1,0 +1,7 @@
+{
+  "env": {
+    "MONGO_USER": "Tomasz_Zieba",
+    "MONGO_PASSWORD": "lNsQgsn2bfC3YJPE",
+    "MONGO_DEFAULT_DATABASE": "chat-app"
+  }
+}
