@@ -90,7 +90,6 @@ exports.login = async (req, res, next) => {
   const { name } = req.body;
   try {
     const user = await User.findOne({ name });
-    await user.populate('chatRooms.chatRoomId').execPopulate();
     if (!user) {
       const error = new Error('A user with this name not found.');
       error.statusCode = 401;
@@ -110,6 +109,7 @@ exports.login = async (req, res, next) => {
       'secret',
       { expiresIn: '1h' },
     );
+    await user.populate('chatRooms.chatRoomId').execPopulate();
     const invitations = createInvitationList(user);
     const chats = createChatsList(user);
     const onlineUsers = createOnlineRelationsList(user);

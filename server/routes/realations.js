@@ -3,6 +3,7 @@ const { body } = require('express-validator');
 const isAuth = require('../middleware/is-auth');
 
 const relationsController = require('../controllers/relations');
+
 const router = express.Router();
 
 router.post('/findUsers', [

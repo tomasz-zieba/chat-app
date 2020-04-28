@@ -18,7 +18,8 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: theme.spacing(1),
       marginRight: theme.spacing(1),
       marginTop: '10px',
-      width: 'auto',
+      marginBottom: '10px',
+      width: '282px',
     },
   },
   inputRoot: {

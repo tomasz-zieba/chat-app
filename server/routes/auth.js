@@ -4,6 +4,7 @@ const { body } = require('express-validator');
 const isAuth = require('../middleware/is-auth');
 const User = require('../models/user');
 const authController = require('../controllers/auth');
+
 const router = express.Router();
 
 router.put('/signup', [
@@ -28,7 +29,7 @@ authController.signup);
 
 router.post('/login', authController.login);
 
-router.post('/auto-login',isAuth , authController.autoLogin);
+router.post('/auto-login', isAuth, authController.autoLogin);
 
 
 module.exports = router;

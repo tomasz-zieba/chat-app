@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const io = require('../../socket');
 
 module.exports = (req, res, next) => {
   const authHeader = req.get('Authorization');

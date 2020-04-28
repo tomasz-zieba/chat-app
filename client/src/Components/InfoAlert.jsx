@@ -32,7 +32,7 @@ export default function InfoAlert({ infolist }) {
     if (info.type === 'invitation') {
       return (
         <Alert
-          key={info.userId + info.type}
+          key={info.userId + info.type + info.text}
           className={classes.fixedAlert}
           action={(
             <div>
@@ -53,7 +53,7 @@ export default function InfoAlert({ infolist }) {
         <Alert
           onClose={() => removeInfo(info.text)}
           className={classes.fixedAlert}
-          key={info.userId + info.type}
+          key={info.userId + info.type + info.text}
           severity="info"
         >
           {info.text}
@@ -64,7 +64,7 @@ export default function InfoAlert({ infolist }) {
         <Alert
           onClose={() => removeInfo(info.text)}
           className={classes.fixedAlert}
-          key={info.userId + info.type}
+          key={info.userId + info.type + info.text}
           severity="success"
         >
           {info.text}
@@ -75,7 +75,7 @@ export default function InfoAlert({ infolist }) {
         <Alert
           onClose={() => removeInfo(info.text)}
           className={classes.fixedAlert}
-          key={info.userId + info.type}
+          key={info.userId + info.type + info.text}
           severity="warning"
         >
           {info.text}

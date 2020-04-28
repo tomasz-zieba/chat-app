@@ -33,7 +33,8 @@ const useStyles = makeStyles((theme) => ({
   },
   root: { flexGrow: 1, height: 'calc(100% - 48px)', display: 'flex' },
   chatMenu: {
-    width: '300px', height: '100%', minHeight: 'fit-content', backgroundColor: fade(theme.palette.primary.light, 0.8), borderRadius: '0', overflow: 'hidden', overflowY: 'scroll',
+    // eslint-disable-next-line max-len
+    width: '300px', height: '100%', minHeight: 'fit-content', backgroundColor: fade(theme.palette.primary.light, 0.8), borderRadius: '0', overflow: 'hidden', overflowY: 'scroll', scrollbarWidth: 'thin',
   },
   menuButton: { marginRight: theme.spacing(2) },
   title: { flexGrow: 1, display: 'none', [theme.breakpoints.up('sm')]: { display: 'block' } },
@@ -104,6 +105,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   MuiChipRoot: { display: 'none' },
+  searchInfo: { display: 'block', textAlign: 'center', fontSize: '20px' },
 }));
 
 function ChatApp() {
@@ -150,12 +152,15 @@ function ChatApp() {
                   <ClickAwayListener onClickAway={() => clearSearchedUsers()}>
                     <Paper elevation={3} className={classes.searchResult}>
                       <List dense className={classes.list}>
-                        {searchUsers.map((user) => (
+                        {!searchUsers.length ? <div className={classes.searchInfo}>Nothing was found.</div> : ''}
+                        {
+                        searchUsers.map((user) => (
                           <ListItem key={user.id} button onClick={() => sendInvValidation(user.id, user.name)}>
                             <ListItemText primary={user.name} />
                             <Icon color="primary">add_circle</Icon>
                           </ListItem>
-                        ))}
+                        ))
+                        }
                       </List>
                     </Paper>
                   </ClickAwayListener>

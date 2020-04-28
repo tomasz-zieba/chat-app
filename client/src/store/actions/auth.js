@@ -138,7 +138,7 @@ export const authLogin = (name, password) => async (dispatch) => {
     dispatch(action.addToChatRooms(resData.chats));
   } catch (error) {
     dispatch(action.addInfo({
-      userId: '', name: '', text: 'There was problem with server. Try again later.', type: 'warning',
+      userId: '', name: '', text: error.message, type: 'warning',
     }));
   }
 };
