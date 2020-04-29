@@ -17,6 +17,11 @@ const useStyles = makeStyles((theme) => ({
   menuLogout: {
     marginLeft: 'auto',
   },
+  appBar: {
+    [theme.breakpoints.down(979)]: {
+      position: 'fixed',
+    },
+  },
 }));
 
 export default function DrawerAppBar() {
@@ -29,8 +34,8 @@ export default function DrawerAppBar() {
   const isAuth = useSelector((state) => state.auth.isAuth);
 
   return (
-    <div className={classes.root}>
-      <AppBar position="static">
+    <>
+      <AppBar className={classes.appBar} position="static">
         <Toolbar variant="dense">
           <Typography variant="h6" color="inherit">
             ChatApp
@@ -52,6 +57,6 @@ export default function DrawerAppBar() {
           />
         </Toolbar>
       </AppBar>
-    </div>
+    </>
   );
 }

@@ -31,7 +31,11 @@ const useStyles = makeStyles((theme) => ({
       outline: '1px solid slategrey',
     },
   },
-  root: { flexGrow: 1, height: 'calc(100% - 48px)', display: 'flex' },
+  root: {
+    flexGrow: 1,
+    height: 'calc(100% - 48px)',
+    display: 'flex',
+  },
   chatMenu: {
     // eslint-disable-next-line max-len
     width: '300px', height: '100%', minHeight: 'fit-content', backgroundColor: fade(theme.palette.primary.light, 0.8), borderRadius: '0', overflow: 'hidden', overflowY: 'scroll', scrollbarWidth: 'thin',
@@ -102,6 +106,7 @@ const useStyles = makeStyles((theme) => ({
     background: 'transparent',
     [theme.breakpoints.down(979)]: {
       width: '100%',
+      marginTop: '48px',
     },
   },
   MuiChipRoot: { display: 'none' },
