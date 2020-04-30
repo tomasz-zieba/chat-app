@@ -14,8 +14,6 @@ You can see a complete working example [here](https://chat-app-tz.herokuapp.com/
 
 ## Frontend
 
-- [axios](https://github.com/axios/axios)
-- [http-proxy-middleware](https://github.com/chimurai/http-proxy-middleware)
 - [React](https://reactjs.org/)
 - [Redux](https://redux.js.org/)
 - [Redux-Thunk](https://github.com/reduxjs/redux-thunk)
