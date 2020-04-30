@@ -35,7 +35,7 @@ Follow the instructions below to set up the environment and run this project on 
 
 ```bash
 # Clone repository
-$ git clone https://github.com/Hsins/udemy_MERN-Todo-List.git
+$ git clone https://github.com/tomasz-zieba/chat-app.git
 ```
 
 2. Install dependencies via NPM 
