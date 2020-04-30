@@ -8,6 +8,7 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 
 import 'emoji-mart/css/emoji-mart.css';
 import { Picker } from 'emoji-mart';
@@ -108,14 +109,12 @@ export default function ChatMessages({ chat, chatId }) {
   }
 
   function onSendMessage() {
+    if (message === '') {
+      return false;
+    }
     sendMessage(message, userName, chatId);
     setMessage('');
-  }
-  function sendMessageWithEnter(e) {
-    if (e.keyCode === 13) {
-      sendMessage(message, userName, chatId);
-      setMessage('');
-    }
+    return true;
   }
 
   useEffect(() => {
@@ -176,7 +175,7 @@ export default function ChatMessages({ chat, chatId }) {
           variant="outlined"
           color="secondary"
           value={message}
-          onKeyDown={(event) => sendMessageWithEnter(event)}
+          onKeyDown={(e) => e.keyCode === 13 && onSendMessage()}
         />
         {emojiPickerActive
           ? (
@@ -184,13 +183,17 @@ export default function ChatMessages({ chat, chatId }) {
               <Media
                 query="(min-width: 980px)"
                 render={() => (
-                  <Picker onSelect={(emoji) => setMessage(message + emoji.native)} style={{ position: 'absolute', bottom: '72px', left: '305px' }} />
+                  <ClickAwayListener onClickAway={() => setEmojiPickerActive(!emojiPickerActive)}>
+                    <Picker color="#009688" onSelect={(emoji) => setMessage(message + emoji.native)} style={{ position: 'absolute', bottom: '72px', left: '305px' }} />
+                  </ClickAwayListener>
                 )}
               />
               <Media
                 query="(max-width: 979px)"
                 render={() => (
-                  <Picker onSelect={(emoji) => setMessage(message + emoji.native)} style={{ position: 'absolute', bottom: '75px', left: '5px' }} />
+                  <ClickAwayListener onClickAway={() => setEmojiPickerActive(!emojiPickerActive)}>
+                    <Picker color="#009688" onSelect={(emoji) => setMessage(message + emoji.native)} style={{ position: 'absolute', bottom: '75px', left: '5px' }} />
+                  </ClickAwayListener>
                 )}
               />
             </div>

@@ -50,9 +50,13 @@ export default function DrawerAppBar() {
           <Media
             query="(max-width: 980px)"
             render={() => (
-              <IconButton onClick={() => { contactsDrawerToggle(); }} edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                <Icon>menu</Icon>
-              </IconButton>
+              isAuth
+                ? (
+                  <IconButton onClick={() => { contactsDrawerToggle(); }} edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+                    <Icon>menu</Icon>
+                  </IconButton>
+                )
+                : ''
             )}
           />
         </Toolbar>

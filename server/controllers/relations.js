@@ -209,6 +209,9 @@ exports.addMessage = async (req, res, next) => {
       text: message,
       createdAt: new Date(),
     };
+    if (chatRoom.chat.length >= 100) {
+      chatRoom.chat.splice(0, chatRoom.chat.length - 99);
+    }
     chatRoom.chat.push(newMessage);
     await chatRoom.save();
 

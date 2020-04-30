@@ -7,7 +7,7 @@ const initialState = {
   infoList: [],
   backdropOpen: false,
   activeChat: null,
-  contactsDrawerOpen: false,
+  contactsDrawerOpen: true,
 };
 
 function getUniqueListBy(arr, key) {
