@@ -124,10 +124,19 @@ exports.acceptInvitation = async (req, res, next) => {
           interlocutorId: index === 0 ? array[1]._id.toString() : array[0]._id.toString(),
           chat: chatRoom.chat,
         };
+
+        let interlocutoIsOnline = false;
+        console.log('io.socketUsers');
+        console.log(io.socketUsers);
+        console.log(interlocutor[0]);
+        console.log('interlocutor[0]');
+        if (interlocutor[0].userId.toString() in io.socketUsers) {
+          interlocutoIsOnline = true;
+        }
         await io
           .getIO()
           .to(io.socketUsers[user._id.toString()].socket)
-          .emit('accept-invitation', chats);
+          .emit('accept-invitation', chats, { interlocutorOnline: interlocutoIsOnline });
       }
     });
     if (userSendInv._id.toString() in io.socketUsers) {

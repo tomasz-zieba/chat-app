@@ -74,16 +74,18 @@ function App() {
   const info = useSelector((state) => state.chat.infoList);
 
   useEffect(() => {
-    // socket = openSocket('http://localhost:8080');
-    socket = openSocket('https://chat-app-tz.herokuapp.com/');
+    socket = openSocket('http://localhost:8080');
+    // socket = openSocket('https://chat-app-tz.herokuapp.com/');
 
     socket.on('add-invitation', (invitation) => {
       addInfo(invitation);
     });
 
-    socket.on('accept-invitation', (chat) => {
+    socket.on('accept-invitation', (chat, isOnline) => {
       addToChatRooms([...userChats, chat]);
-      relationUserConnect(chat.interlocutorId);
+      if (isOnline.interlocutorOnline) {
+        relationUserConnect(chat.interlocutorId);
+      }
     });
 
     socket.on('send-info', (infoSended) => {

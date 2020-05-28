@@ -3,7 +3,53 @@ const { validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
+const ChatRoom = require('../models/chatRoom');
 const io = require('../../socket');
+
+async function createDefaultRelation(newUser) {
+  const defaultRelationUser = await User.findOne({ name: 'Tomasz Zięba' });
+  if (defaultRelationUser) {
+    const chatRoom = new ChatRoom({
+      chat: [
+        {
+          creator: defaultRelationUser.name,
+          text: `Hello ${newUser.name}. My name is Tomek and i'm creator of this app. If you have any questions about it you can ask me here. Also feel free to send me on email on tomaszzieba987@gmail.com.`,
+          createdAt: new Date(),
+        },
+      ],
+      participants: [
+        {
+          userId: newUser._id.toString(),
+          name: newUser.name,
+        }, {
+          userId: defaultRelationUser._id,
+          name: defaultRelationUser.name,
+        }],
+    });
+    const newChatRoom = await chatRoom.save();
+
+    newUser.relations = [{ userId: defaultRelationUser._id.toString(), name: defaultRelationUser.name }];
+    newUser.chatRooms = [{ chatRoomId: newChatRoom._id }];
+    await newUser.save();
+    defaultRelationUser.relations = [...defaultRelationUser.relations, { userId: newUser._id.toString(), name: newUser.name }];
+    defaultRelationUser.chatRooms = [...defaultRelationUser.chatRooms, { chatRoomId: newChatRoom._id }];
+    await defaultRelationUser.save();
+
+    const chats = {
+      chatId: newChatRoom._id.toString(),
+      interlocutor: newUser.name,
+      interlocutorId: newUser._id.toString(),
+      chat: newChatRoom.chat,
+    };
+
+    if (defaultRelationUser._id.toString() in io.socketUsers) {
+      await io
+        .getIO()
+        .to(io.socketUsers[defaultRelationUser._id.toString()].socket)
+        .emit('accept-invitation', chats, { interlocutorOnline: false });
+    }
+  }
+}
 
 function emitInfoToRelationsOnline(user) {
   const userRelations = user.relations;
@@ -75,6 +121,7 @@ exports.signup = async (req, res, next) => {
       name,
     });
     const result = await user.save();
+    await createDefaultRelation(result);
     res.status(201).json({ message: 'User created!', userId: result._id });
   } catch (err) {
     if (!err.statusCode) {
