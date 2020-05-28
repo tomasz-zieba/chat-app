@@ -74,8 +74,8 @@ function App() {
   const info = useSelector((state) => state.chat.infoList);
 
   useEffect(() => {
-    socket = openSocket('http://localhost:8080');
-    // socket = openSocket('https://chat-app-tz.herokuapp.com/');
+    // socket = openSocket('http://localhost:8080');
+    socket = openSocket('https://chat-app-tz.herokuapp.com/');
 
     socket.on('add-invitation', (invitation) => {
       addInfo(invitation);
