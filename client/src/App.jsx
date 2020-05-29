@@ -8,6 +8,7 @@ import { ThemeProvider } from '@material-ui/styles';
 import { blueGrey, teal } from '@material-ui/core/colors';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import addNotification from 'react-push-notification';
 
 import InfoAlert from './Components/InfoAlert';
 import ChatApp from './Containers/ChatApp';
@@ -86,6 +87,14 @@ function App() {
       if (isOnline.interlocutorOnline) {
         relationUserConnect(chat.interlocutorId);
       }
+      addNotification({
+        title: 'New contact',
+        subtitle: 'Test subitle',
+        message: 'You have a new contact in your contact list.',
+        theme: 'darkblue',
+        native: true, // when using native, your OS will handle theming.
+        duration: 6000,
+      });
     });
 
     socket.on('send-info', (infoSended) => {

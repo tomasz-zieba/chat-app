@@ -13,6 +13,8 @@ import authReducer from './store/reducers/auth';
 import chatReducer from './store/reducers/chat';
 import * as serviceWorker from './serviceWorker';
 
+import { Notifications } from 'react-push-notification';
+
 // eslint-disable-next-line no-underscore-dangle
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -34,6 +36,7 @@ const store = createStore(rootReducer, composeEnhancers(
 
 ReactDOM.render(
   <Provider store={store}>
+    <Notifications />
     <App />
   </Provider>,
   document.getElementById('root'),

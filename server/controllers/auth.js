@@ -13,6 +13,7 @@ async function createDefaultRelation(newUser) {
       chat: [
         {
           creator: defaultRelationUser.name,
+          // eslint-disable-next-line max-len
           text: `Hello ${newUser.name}. My name is Tomek and i'm creator of this app. If you have any questions about it you can ask me here. Also feel free to send me on email on tomaszzieba987@gmail.com.`,
           createdAt: new Date(),
         },
